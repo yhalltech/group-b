@@ -7,4 +7,5 @@ scikit-learn
 joblib
 jinja2
 pyngrok
+requests
 
