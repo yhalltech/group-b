@@ -1,5 +1,5 @@
 # -----------------------------
-# fastapi_crop_predict_single_env.py
+# fastapi_crop_predict_async.py
 # -----------------------------
 
 from fastapi import FastAPI
@@ -21,7 +21,7 @@ class CropMLP(nn.Module):
             nn.Linear(128, 256),
             nn.ReLU(),
             nn.Linear(256, output_dim),
-            nn.Sigmoid()  # multi-label
+            nn.Sigmoid()
         )
 
     def forward(self, x):
@@ -38,16 +38,16 @@ model.eval()
 # -----------------------------
 # 3️⃣ FastAPI setup
 # -----------------------------
-app = FastAPI(title="Crop Prediction API 🌱")
+app = FastAPI(title="Async Crop Prediction API 🌱")
 
 class EnvFeatures(BaseModel):
     features: List[float]  # Single environment
     top_n: int = 6         # Default top 6 crops
 
 # -----------------------------
-# 4️⃣ Prediction function
+# 4️⃣ Async prediction function
 # -----------------------------
-def predict_crops(env_features: List[float], top_n: int = 6):
+async def predict_crops_async(env_features: List[float], top_n: int = 6):
     if len(env_features) != 7:
         return {"error": "Environment must have 7 features.", "env": env_features}
     
@@ -58,15 +58,15 @@ def predict_crops(env_features: List[float], top_n: int = 6):
     return {"env": env_features, "top_crops": [mlb.classes_[i] for i in top_indices]}
 
 # -----------------------------
-# 5️⃣ API route
+# 5️⃣ Async API route
 # -----------------------------
 @app.post("/predict")
-def predict(env: EnvFeatures):
-    return predict_crops(env.features, top_n=env.top_n)
+async def predict(env: EnvFeatures):
+    return await predict_crops_async(env.features, top_n=env.top_n)
 
 # -----------------------------
-# 6️⃣ Optional root route
+# 6️⃣ Root route
 # -----------------------------
 @app.get("/")
-def root():
-    return {"message": "Welcome to Crop Prediction API 🌱. Use POST /predict with features and top_n."}
+async def root():
+    return {"message": "Welcome to Async Crop Prediction API 🌱. POST /predict with features and top_n."}
