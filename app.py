@@ -1,16 +1,17 @@
 # -----------------------------
-# fastapi_crop_predict_async.py
+# fastapi_crop_predict_json_upgraded.py
 # -----------------------------
 
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
+from typing import List
 import joblib
 import torch
 import torch.nn as nn
-from typing import List
 
 # -----------------------------
-# 1️⃣ Define MLP
+# 1️⃣ Define MLP model
 # -----------------------------
 class CropMLP(nn.Module):
     def __init__(self, input_dim=7, output_dim=2698):
@@ -28,7 +29,7 @@ class CropMLP(nn.Module):
         return self.model(x)
 
 # -----------------------------
-# 2️⃣ Load model and mlb
+# 2️⃣ Load model and MultiLabelBinarizer
 # -----------------------------
 mlb = joblib.load('mlb.pkl')
 model = CropMLP(input_dim=7, output_dim=len(mlb.classes_))
@@ -38,35 +39,54 @@ model.eval()
 # -----------------------------
 # 3️⃣ FastAPI setup
 # -----------------------------
-app = FastAPI(title="Async Crop Prediction API 🌱")
+app = FastAPI(title="Crop Prediction API 🌱", version="1.1")
 
+# Enable CORS
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Replace "*" with your frontend domain in production
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# -----------------------------
+# 4️⃣ Pydantic model for input
+# -----------------------------
 class EnvFeatures(BaseModel):
     features: List[float]  # Single environment
     top_n: int = 6         # Default top 6 crops
 
 # -----------------------------
-# 4️⃣ Async prediction function
+# 5️⃣ Prediction function
 # -----------------------------
-async def predict_crops_async(env_features: List[float], top_n: int = 6):
+def predict_crops(env_features: List[float], top_n: int = 6):
     if len(env_features) != 7:
-        return {"error": "Environment must have 7 features.", "env": env_features}
-    
+        return {"error": "Each environment must have exactly 7 features.", "env": env_features}
+
     env_tensor = torch.tensor(env_features, dtype=torch.float32).unsqueeze(0)
     with torch.no_grad():
         probs = model(env_tensor).numpy().flatten()
+
     top_indices = probs.argsort()[-top_n:][::-1]
-    return {"env": env_features, "top_crops": [mlb.classes_[i] for i in top_indices]}
+    top_crops = [mlb.classes_[i] for i in top_indices]
+
+    return {
+        "env": env_features,
+        "top_n": top_n,
+        "top_crops": top_crops
+    }
 
 # -----------------------------
-# 5️⃣ Async API route
+# 6️⃣ API route
 # -----------------------------
 @app.post("/predict")
-async def predict(env: EnvFeatures):
-    return await predict_crops_async(env.features, top_n=env.top_n)
+def predict(env: EnvFeatures):
+    return predict_crops(env.features, top_n=env.top_n)
 
 # -----------------------------
-# 6️⃣ Root route
+# 7️⃣ Optional health check
 # -----------------------------
-@app.get("/")
-async def root():
-    return {"message": "Welcome to Async Crop Prediction API 🌱. POST /predict with features and top_n."}
+@app.get("/health")
+def health():
+    return {"status": "OK", "message": "API is running 🚀"}
