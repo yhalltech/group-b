@@ -1,0 +1,1544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Character encoding for proper text rendering -->
+  <meta charset="UTF-8" />
+  <!-- Responsive viewport settings for mobile devices -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Page title with emoji for visual appeal -->
+  <title>📚 Documentation | Crop Recommendation System</title>
+  <!-- Bootstrap CSS for responsive layout and components -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <!-- Highlight.js CSS for code syntax highlighting -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+  <!-- Highlight.js JavaScript for code syntax highlighting -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <!-- Initialize syntax highlighting on page load -->
+  <script>hljs.highlightAll();</script>
+  <style>
+    /* Main body styling with gradient background */
+    body {
+      background: linear-gradient(135deg, #4CAF50, #FF9800);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      font-family: "Poppins", sans-serif;
+      color: #2e7d32;
+      padding-top: 76px;
+    }
+
+    /* Navigation bar styling with gradient background */
+    .navbar {
+      background: linear-gradient(135deg, #ffd700, #ff6b9d, #ffd700) !important;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+    }
+
+    /* Brand styling in navigation */
+    .navbar-brand {
+      font-weight: 700;
+      font-size: 1.5rem;
+      color: #5d4037 !important;
+    }
+
+    /* Navigation link styling */
+    .nav-link {
+      color: #5d4037 !important;
+      font-weight: 500;
+      margin: 0 10px;
+      transition: all 0.3s;
+    }
+
+    /* Hover effect for navigation links */
+    .nav-link:hover, .nav-link.active {
+      color: #fff !important;
+      transform: translateY(-2px);
+    }
+
+    /* Navigation toggler button styling */
+    .navbar-toggler {
+      border: none;
+      color: #5d4037;
+    }
+
+    /* Main card container styling */
+    .card {
+      max-width: 1100px;
+      width: 100%;
+      margin: 2rem auto;
+      border: none;
+      border-radius: 25px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+      overflow: hidden;
+      background: rgba(255, 255, 255, 0.98);
+    }
+
+    /* Card header with animated gradient background */
+    .card-header {
+      background: linear-gradient(135deg, #ffd700, #ff6b9d, #ffd700);
+      color: #5d4037;
+      padding: 2rem;
+      border-bottom: 3px solid #ffa000;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Animated background effect for card header */
+    .card-header::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+      animation: sunlight 8s infinite linear;
+      z-index: 0;
+    }
+
+    /* Ensure content stays above animated background */
+    .card-header-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Animation for sunlight effect */
+    @keyframes sunlight {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Section styling for documentation content */
+    .doc-section {
+      margin-bottom: 2.5rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    /* Section heading styling */
+    .doc-section h3 {
+      color: #2e7d32;
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid #4CAF50;
+    }
+
+    /* Subsection heading styling */
+    .doc-section h4 {
+      color: #388E3C;
+      margin-top: 1.5rem;
+      margin-bottom: 0.8rem;
+    }
+
+    /* Custom feature list styling with checkmarks */
+    .feature-list {
+      list-style-type: none;
+      padding-left: 0;
+    }
+
+    /* Individual feature item styling */
+    .feature-list li {
+      padding: 8px 0;
+      padding-left: 30px;
+      position: relative;
+    }
+
+    /* Checkmark before each feature item */
+    .feature-list li:before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: #4CAF50;
+      font-weight: bold;
+    }
+
+    /* Technology badge styling */
+    .tech-badge {
+      background: linear-gradient(135deg, #4CAF50, #2e7d32);
+      color: white;
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin: 5px;
+      display: inline-block;
+    }
+
+    /* Team member card styling */
+    .team-member {
+      text-align: center;
+      padding: 15px;
+      border-radius: 10px;
+      background: #f8f9fa;
+      margin: 10px 0;
+      transition: transform 0.3s;
+    }
+
+    /* Hover effect for team member cards */
+    .team-member:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    /* Team member icon styling */
+    .member-icon {
+      font-size: 2rem;
+      color: #4CAF50;
+      margin-bottom: 10px;
+    }
+
+    /* Code block container styling */
+    .code-block {
+      background: #f8f9fa;
+      border-radius: 10px;
+      padding: 1.5rem;
+      margin: 1rem 0;
+      border-left: 4px solid #4CAF50;
+    }
+
+    /* Code block header styling */
+    .code-header {
+      background: #2e7d32;
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 5px 5px 0 0;
+      margin: -1.5rem -1.5rem 1rem -1.5rem;
+      font-family: monospace;
+      font-size: 0.9rem;
+    }
+
+    /* Preformatted text styling for code */
+    pre {
+      background: transparent !important;
+      padding: 0 !important;
+      margin: 0 !important;
+    }
+
+    /* Highlight.js styling override */
+    .hljs {
+      background: transparent !important;
+      padding: 0 !important;
+    }
+
+    /* API endpoint documentation styling */
+    .endpoint {
+      background: #e8f5e9;
+      padding: 1rem;
+      border-radius: 8px;
+      margin: 1rem 0;
+      border-left: 4px solid #4CAF50;
+    }
+
+    /* HTTP method badge styling */
+    .endpoint-method {
+      display: inline-block;
+      padding: 0.3rem 0.8rem;
+      border-radius: 4px;
+      font-weight: bold;
+      margin-right: 1rem;
+    }
+
+    /* POST method specific styling */
+    .method-post { background: #4CAF50; color: white; }
+    /* GET method specific styling */
+    .method-get { background: #2196F3; color: white; }
+
+    /* Parameter table styling */
+    .param-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0;
+    }
+
+    /* Table cell styling */
+    .param-table th, .param-table td {
+      padding: 0.8rem;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    /* Table header styling */
+    .param-table th {
+      background: #f1f8e9;
+      font-weight: 600;
+    }
+
+    /* Footer styling with gradient */
+    .footer {
+      background: linear-gradient(135deg, #2e7d32, #1b5e20);
+      color: white;
+      padding: 2rem 0;
+      margin-top: auto;
+      text-align: center;
+    }
+
+    /* Footer paragraph styling */
+    .footer p {
+      margin: 0;
+      font-size: 0.9rem;
+    }
+
+    /* University badge styling */
+    .university-badge {
+      background: linear-gradient(135deg, #4CAF50, #2e7d32);
+      color: white;
+      padding: 5px 15px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin-left: 10px;
+    }
+
+    /* Primary button styling */
+    .btn-primary {
+      background: linear-gradient(90deg, #4CAF50, #66BB6A);
+      border: none;
+      font-weight: 600;
+      transition: 0.3s;
+      padding: 12px 30px;
+      font-size: 1rem;
+      border-radius: 50px;
+      width: auto;
+      margin: 0 auto;
+      display: block;
+      box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+      color: white;
+    }
+
+    /* Button hover effects */
+    .btn-primary:hover {
+      background: linear-gradient(90deg, #66BB6A, #4CAF50);
+      transform: scale(1.05);
+      box-shadow: 0 8px 25px rgba(76, 175, 80, 0.6);
+      color: white;
+    }
+
+    /* Marquee text styling for animated text */
+    .marquee-text {
+      font-size: 0.9rem;
+      margin-top: 10px;
+      color: #5d4037;
+      overflow: hidden;
+      white-space: nowrap;
+      box-sizing: border-box;
+      font-weight: 500;
+    }
+
+    /* Marquee text animation */
+    .marquee-text span {
+      display: inline-block;
+      padding-left: 100%;
+      animation: marquee 15s linear infinite;
+    }
+
+    /* Keyframes for marquee animation */
+    @keyframes marquee {
+      0% { transform: translate(0, 0); }
+      100% { transform: translate(-100%, 0); }
+    }
+
+    /* Documentation sidebar navigation */
+    .doc-nav {
+      position: sticky;
+      top: 100px;
+      background: white;
+      border-radius: 15px;
+      padding: 1.5rem;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    /* Remove default list styling */
+    .doc-nav ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    /* Navigation list item spacing */
+    .doc-nav li {
+      margin-bottom: 0.5rem;
+    }
+
+    /* Navigation link styling */
+    .doc-nav a {
+      color: #2e7d32;
+      text-decoration: none;
+      padding: 0.5rem 1rem;
+      display: block;
+      border-radius: 5px;
+      transition: all 0.3s;
+    }
+
+    /* Navigation link hover and active states */
+    .doc-nav a:hover, .doc-nav a.active {
+      background: #e8f5e9;
+      color: #1b5e20;
+    }
+
+    /* Loading animation styling */
+    .loading-dots {
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: 600;
+      color: #388E3C;
+    }
+
+    /* Individual dot styling for loading animation */
+    .dot {
+      animation: blink 1.5s infinite;
+    }
+
+    /* Staggered animation for dots */
+    .dot:nth-child(2) {
+      animation-delay: 0.3s;
+    }
+    .dot:nth-child(3) {
+      animation-delay: 0.6s;
+    }
+
+    /* Blinking animation for loading dots */
+    @keyframes blink {
+      0% { opacity:0; }
+      50% { opacity:1; }
+      100% { opacity:0; }
+    }
+
+    /* Result box styling */
+    #result-box {
+      background: linear-gradient(135deg, #e8f5e9, #c8e6c9, #a5d6a7);
+      border-radius: 15px;
+      padding: 20px;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      color: #2e7d32;
+      text-align: left;
+      min-height: 120px;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+      overflow-y: auto;
+      border: 2px solid #4CAF50;
+      box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    /* Input group positioning */
+    .input-group {
+      position: relative;
+    }
+
+    /* Validation icon positioning */
+    .validation-icon {
+      position: absolute;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+
+    /* Valid input icon color */
+    .valid-icon {
+      color: #4CAF50;
+    }
+
+    /* Invalid input icon color */
+    .invalid-icon {
+      color: #f44336;
+    }
+    
+    /* Capsule-shaped input styling */
+    .capsule-input {
+      border-radius: 50px !important;
+    }
+    
+    /* Recommendation button container */
+    .recommend-btn-container {
+      text-align: center;
+      margin-top: 1.5rem;
+    }
+
+    /* Shake animation for invalid inputs */
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      10%, 30%, 50%, 70%, 90% { transform: translateX(-10px); }
+      20%, 40%, 60%, 80% { transform: translateX(10px); }
+    }
+
+    /* Shake animation class */
+    .shake-animation {
+      animation: shake 0.5s ease-in-out 3;
+    }
+
+    /* Modal header styling */
+    .modal-header {
+      background: linear-gradient(135deg, #ffd700, #ff6b9d, #ffd700);
+      color: #5d4037;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <nav class="navbar navbar-expand-lg navbar-light">
+    <div class="container">
+      <!-- Brand logo and university badge -->
+      <a class="navbar-brand" href="#">
+        <i class="fas fa-seedling me-2"></i>Group-B
+        <span class="university-badge">MUST</span>
+      </a>
+      <!-- Mobile navigation toggle button -->
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <!-- Navigation links -->
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="https://group-b.pages.dev">
+              <i class="fas fa-home me-1"></i>Main Application
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="doc.html">
+              <i class="fas fa-book me-1"></i>Documentation
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#team">
+              <i class="fas fa-users me-1"></i>Team
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#contact">
+              <i class="fas fa-envelope me-1"></i>Contact
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content Container -->
+  <div class="container flex-grow-1">
+    <div class="row">
+      <!-- Sidebar Navigation Column -->
+      <div class="col-md-3">
+        <div class="doc-nav">
+          <h5>Documentation</h5>
+          <ul>
+            <li><a href="#introduction" class="active">Introduction</a></li>
+            <li><a href="#overview">Project Overview</a></li>
+            <li><a href="#architecture">System Architecture</a></li>
+            <li><a href="#api">API Documentation</a></li>
+            <li><a href="#frontend">Frontend Code</a></li>
+            <li><a href="#backend">Backend Code</a></li>
+            <li><a href="#model">ML Model Training</a></li>
+            <li><a href="#optimization">Optimization Algorithms</a></li>
+            <li><a href="#team">Development Team</a></li>
+            <li><a href="#future">Future Enhancements</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Documentation Content Column -->
+      <div class="col-md-9">
+        <div class="card shadow mt-5">
+          <div class="card-header text-center">
+            <div class="card-header-content">
+              <h2 class="mb-1">📚 Technical Documentation</h2>
+              <div class="marquee-text">
+                <span>Complete technical documentation • API reference • Code examples • Model training details • System architecture</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="card-body p-4">
+            <!-- Introduction Section -->
+            <div class="doc-section" id="introduction">
+              <h3>Introduction</h3>
+              <p>The <strong>Crop Recommendation System</strong> is an intelligent web application designed to help farmers and agricultural experts determine the most suitable crops based on environmental and soil conditions. This system leverages machine learning algorithms to analyze various parameters and provide personalized crop recommendations.</p>
+              <p>Developed as part of the Bachelor of Computer Technology program at Meru University of Science and Technology, this project demonstrates the practical application of modern web technologies and machine learning in solving real-world agricultural challenges.</p>
+            </div>
+
+            <!-- Project Overview Section -->
+            <div class="doc-section" id="overview">
+              <h3>Project Overview</h3>
+              <p>The system takes seven key environmental parameters as input and returns a list of recommended crops based on machine learning predictions. The model was trained on a comprehensive dataset containing various crop-environment relationships.</p>
+              
+              <h4>Key Features</h4>
+              <ul class="feature-list">
+                <li>AI-powered crop recommendations using a trained neural network</li>
+                <li>Real-time input validation with visual feedback</li>
+                <li>Responsive design optimized for all devices</li>
+                <li>User-friendly interface with intuitive controls</li>
+                <li>Customizable number of crop recommendations (1-10)</li>
+                <li>RESTful API for integration with other systems</li>
+                <li>Comprehensive documentation and team information</li>
+              </ul>
+
+              <h4>Input Parameters</h4>
+              <table class="param-table">
+                <thead>
+                  <tr>
+                    <th>Parameter</th>
+                    <th>Description</th>
+                    <th>Range</th>
+                    <th>Optimal Range</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Nitrogen (N)</td>
+                    <td>Nitrogen content in soil</td>
+                    <td>0-250 ppm</td>
+                    <td>20-150 ppm</td>
+                  </tr>
+                  <tr>
+                    <td>Phosphorus (P)</td>
+                    <td>Phosphorus content in soil</td>
+                    <td>0-200 ppm</td>
+                    <td>20-100 ppm</td>
+                  </tr>
+                  <tr>
+                    <td>Potassium (K)</td>
+                    <td>Potassium content in soil</td>
+                    <td>0-400 ppm</td>
+                    <td>20-250 ppm</td>
+                  </tr>
+                  <tr>
+                    <td>Temperature</td>
+                    <td>Ambient temperature</td>
+                    <td>5-44°C</td>
+                    <td>15-35°C</td>
+                  </tr>
+                  <tr>
+                    <td>Humidity</td>
+                    <td>Relative humidity</td>
+                    <td>0-100%</td>
+                    <td>40-80%</td>
+                  </tr>
+                  <tr>
+                    <td>pH Value</td>
+                    <td>Soil acidity/alkalinity</td>
+                    <td>3.4-9.0</td>
+                    <td>6.0-7.5</td>
+                  </tr>
+                  <tr>
+                    <td>Rainfall</td>
+                    <td>Annual precipitation</td>
+                    <td>150-2500 mm</td>
+                    <td>150-1500 mm</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- System Architecture Section -->
+            <div class="doc-section" id="architecture">
+              <h3>System Architecture</h3>
+              <p>The Crop Recommendation System follows a client-server architecture with the following components:</p>
+              
+              <h4>Frontend (Client)</h4>
+              <div class="mb-3">
+                <span class="tech-badge">HTML5</span>
+                <span class="tech-badge">CSS3</span>
+                <span class="tech-badge">JavaScript</span>
+                <span class="tech-badge">Bootstrap 5</span>
+                <span class="tech-badge">Font Awesome</span>
+              </div>
+              
+              <h4>Backend (Server)</h4>
+              <div class="mb-3">
+                <span class="tech-badge">Python</span>
+                <span class="tech-badge">FastAPI</span>
+                <span class="tech-badge">PyTorch</span>
+                <span class="tech-badge">Scikit-learn</span>
+                <span class="tech-badge">Joblib</span>
+                <span class="tech-badge">Uvicorn</span>
+              </div>
+              
+              <h4>Machine Learning Model</h4>
+              <p>The system uses a Multi-Layer Perceptron (MLP) neural network with the following architecture:</p>
+              <ul>
+                <li><strong>Input Layer:</strong> 7 neurons (N, P, K, temperature, humidity, pH, rainfall)</li>
+                <li><strong>Hidden Layers:</strong> 128 and 256 neurons with ReLU activation</li>
+                <li><strong>Output Layer:</strong> 2698 neurons (number of crop classes) with Sigmoid activation</li>
+                <li><strong>Training:</strong> 50 epochs with binary cross-entropy loss</li>
+                <li><strong>Optimizer:</strong> Adam with learning rate 0.001</li>
+              </ul>
+              
+              <h4>Data Flow</h4>
+              <ol>
+                <li>User inputs environmental parameters through the web interface</li>
+                <li>Frontend validates inputs and sends request to backend API</li>
+                <li>Backend processes the inputs through the trained ML model</li>
+                <li>Model returns probability scores for all crop classes</li>
+                <li>Backend selects top N crops based on probability scores</li>
+                <li>Results are formatted and returned to the frontend</li>
+                <li>Frontend displays the recommended crops to the user</li>
+              </ol>
+            </div>
+
+            <!-- API Documentation Section -->
+            <div class="doc-section" id="api">
+              <h3>API Documentation</h3>
+              <p>The Crop Recommendation System provides a RESTful API for crop prediction. The API accepts POST requests with environmental parameters and returns recommended crops.</p>
+              
+              <div class="endpoint">
+                <div class="endpoint-method method-post">POST</div>
+                <strong>https://cropie-sys.onrender.com/predict</strong>
+                <p class="mt-2">Predict suitable crops based on environmental conditions</p>
+                
+                <h5>Request Body</h5>
+                <div class="code-block">
+                  <div class="code-header">JSON Schema</div>
+                  <pre><code class="language-json">{
+  "N": 60.0,        // Nitrogen content in ppm (0-250)
+  "P": 40.0,        // Phosphorus content in ppm (0-200)
+  "K": 70.0,        // Potassium content in ppm (0-400)
+  "temperature": 26.0,  // Temperature in Celsius (5-44)
+  "humidity": 75.0,     // Relative humidity percentage (0-100)
+  "ph": 6.3,        // Soil pH value (3.4-9.0)
+  "rainfall": 180.0,    // Annual rainfall in mm (150-2500)
+  "top_n": 5        // Number of top crops to return (optional, default: 5)
+}</code></pre>
+                </div>
+
+                <h5>Parameters</h5>
+                <table class="param-table">
+                  <thead>
+                    <tr>
+                      <th>Parameter</th>
+                      <th>Type</th>
+                      <th>Required</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>N</td>
+                      <td>float</td>
+                      <td>Yes</td>
+                      <td>Nitrogen content (0-250 ppm)</td>
+                    </tr>
+                    <tr>
+                      <td>P</td>
+                      <td>float</td>
+                      <td>Yes</td>
+                      <td>Phosphorus content (0-200 ppm)</td>
+                    </tr>
+                    <tr>
+                      <td>K</td>
+                      <td>float</td>
+                      <td>Yes</td>
+                      <td>Potassium content (0-400 ppm)</td>
+                    </tr>
+                    <tr>
+                      <td>temperature</td>
+                      <td>float</td>
+                      <td>Yes</td>
+                      <td>Temperature in Celsius (5-44°C)</td>
+                    </tr>
+                    <tr>
+                      <td>humidity</td>
+                      <td>float</td>
+                      <td>Yes</td>
+                      <td>Relative humidity (0-100%)</td>
+                    </tr>
+                    <tr>
+                      <td>ph</td>
+                      <td>float</td>
+                      <td>Yes</td>
+                      <td>Soil pH value (3.4-9.0)</td>
+                    </tr>
+                    <tr>
+                      <td>rainfall</td>
+                      <td>float</td>
+                      <td>Yes</td>
+                      <td>Annual rainfall in mm (150-2500)</td>
+                    </tr>
+                    <tr>
+                      <td>top_n</td>
+                      <td>int</td>
+                      <td>No</td>
+                      <td>Number of crops to return (default: 5)</td>
+                    </tr>
+                  </tbody>
+                </table>
+
+                <h5>Response</h5>
+                <div class="code-block">
+                  <div class="code-header">Success Response (200 OK)</div>
+                  <pre><code class="language-json">{
+  "environment": [60.0, 40.0, 70.0, 26.0, 75.0, 6.3, 180.0],  // Echo of input parameters
+  "predicted_crops": [  // Array of recommended crop names
+    "ocotillo_fouquieria",
+    "pepper_bell", 
+    "okra_clemson",
+    "cilantro_santo",
+    "tomato_cherokee"
+  ]
+}</code></pre>
+                </div>
+
+                <h5>Example Usage</h5>
+                <div class="code-block">
+                  <div class="code-header">JavaScript Fetch Example</div>
+                  <pre><code class="language-javascript">// Make API request to get crop recommendations
+const response = await fetch("https://cropie-sys.onrender.com/predict", {
+  method: "POST",  // HTTP method
+  headers: { "Content-Type": "application/json" },  // Request headers
+  body: JSON.stringify({  // Request body with environmental data
+    N: 60,
+    P: 40,
+    K: 70,
+    temperature: 26,
+    humidity: 75,
+    ph: 6.3,
+    rainfall: 180,
+    top_n: 5
+  })
+});
+
+// Parse the JSON response
+const result = await response.json();
+
+// Access the predicted crops array
+console.log(result.predicted_crops);</code></pre>
+                </div>
+              </div>
+            </div>
+
+            <!-- Frontend Code Section -->
+            <div class="doc-section" id="frontend">
+              <h3>Frontend Implementation</h3>
+              <p>The frontend is built with vanilla JavaScript, HTML5, and CSS3 with Bootstrap 5 for responsive design.</p>
+              
+              <h4>Main Application Structure</h4>
+              <div class="code-block">
+                <div class="code-header">index.html - Main Structure</div>
+                <pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8" /&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0" /&gt;
+  &lt;title&gt;🌱 Crop Recommendation System&lt;/title&gt;
+  &lt;!-- Bootstrap CSS for responsive design --&gt;
+  &lt;link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" /&gt;
+  &lt;!-- Font Awesome for icons --&gt;
+  &lt;link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"&gt;
+  &lt;!-- Custom CSS for styling --&gt;
+  &lt;style&gt;
+    /* Custom styles for the application */
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;!-- Navigation Bar --&gt;
+  &lt;nav class="navbar navbar-expand-lg navbar-light"&gt;
+    &lt;!-- Brand and navigation links --&gt;
+  &lt;/nav&gt;
+
+  &lt;!-- Main Content Container --&gt;
+  &lt;div class="container"&gt;
+    &lt;div class="card"&gt;
+      &lt;div class="card-header"&gt;
+        &lt;h2&gt;🌱 Crop Recommendation System&lt;/h2&gt;
+      &lt;/div&gt;
+      &lt;div class="card-body"&gt;
+        &lt;!-- Prediction Form --&gt;
+        &lt;form id="predictionForm" novalidate&gt;
+          &lt;!-- Input fields for environmental parameters --&gt;
+          &lt;div class="row"&gt;
+            &lt;div class="col-md-6"&gt;
+              &lt;label class="form-label"&gt;Nitrogen (N)&lt;/label&gt;
+              &lt;input type="number" class="form-control capsule-input" name="n" required&gt;
+            &lt;/div&gt;
+            &lt;!-- More input fields... --&gt;
+          &lt;/div&gt;
+          &lt;button type="submit" class="btn btn-primary"&gt;🌾 Get Recommendations&lt;/button&gt;
+        &lt;/form&gt;
+        
+        &lt;!-- Loading Indicator --&gt;
+        &lt;div id="loading" class="loading-dots text-center" style="display:none;"&gt;
+          Analyzing your soil and climate data&lt;span class="dot"&gt;.&lt;/span&gt;&lt;span class="dot"&gt;.&lt;/span&gt;&lt;span class="dot"&gt;.&lt;/span&gt;
+        &lt;/div&gt;
+        
+        &lt;!-- Results Section --&gt;
+        &lt;div id="result-section" class="mt-4" style="display:none;"&gt;
+          &lt;h4&gt;🌾 Recommended Crops&lt;/h4&gt;
+          &lt;div id="result-box"&gt;&lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;!-- Footer --&gt;
+  &lt;footer class="footer"&gt;
+    &lt;!-- Footer content --&gt;
+  &lt;/footer&gt;
+
+  &lt;!-- Bootstrap JavaScript --&gt;
+  &lt;script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"&gt;&lt;/script&gt;
+  &lt;script&gt;
+    // JavaScript code for form handling and API calls
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+              </div>
+
+              <h4>JavaScript API Integration</h4>
+              <div class="code-block">
+                <div class="code-header">JavaScript - Form Handling and API Call</div>
+                <pre><code class="language-javascript">// Add event listener for form submission
+document.getElementById("predictionForm").addEventListener("submit", async (e) => {
+  e.preventDefault();  // Prevent default form submission
+  
+  // Collect form data
+  const formData = new FormData(e.target);
+  const features = [
+    parseFloat(formData.get("n")),        // Nitrogen
+    parseFloat(formData.get("p")),        // Phosphorus
+    parseFloat(formData.get("k")),        // Potassium
+    parseFloat(formData.get("temperature")),  // Temperature
+    parseFloat(formData.get("humidity")),     // Humidity
+    parseFloat(formData.get("ph")),       // pH value
+    parseFloat(formData.get("rainfall"))  // Rainfall
+  ];
+
+  // Get number of crops to display
+  const top_n = parseInt(formData.get("top_n"));
+
+  try {
+    // Show loading indicator
+    document.getElementById("loading").style.display = "block";
+    document.getElementById("result-section").style.display = "none";
+
+    // Make API request to backend
+    const response = await fetch("https://cropie-sys.onrender.com/predict", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ features, top_n })
+    });
+
+    // Parse response
+    const result = await response.json();
+    
+    // Handle successful response
+    if (response.ok) {
+      displayResults(result.predicted_crops);
+    } else {
+      showError(result.error || "Unknown error");
+    }
+  } catch (err) {
+    // Handle network errors
+    showError("Network error: " + err.message);
+  } finally {
+    // Hide loading indicator
+    document.getElementById("loading").style.display = "none";
+  }
+});
+
+// Function to display results in the UI
+function displayResults(crops) {
+  const resultBox = document.getElementById("result-box");
+  const resultSection = document.getElementById("result-section");
+  
+  // Format crop names (convert snake_case to Proper Case)
+  const formattedCrops = crops.map(crop => 
+    crop.split('_').map(word => 
+      word.charAt(0).toUpperCase() + word.slice(1)
+    ).join(' ')
+  );
+  
+  // Display results with typing animation
+  resultBox.innerHTML = "";
+  resultSection.style.display = "block";
+  typeText(formattedCrops.join(", "), resultBox);
+}
+
+// Function to show error messages
+function showError(message) {
+  alert("Error: " + message);
+}
+
+// Function for typing animation effect
+function typeText(text, element) {
+  let i = 0;
+  const interval = setInterval(() => {
+    if (i < text.length) {
+      element.innerHTML += text.charAt(i);
+      i++;
+    } else {
+      clearInterval(interval);
+    }
+  }, 40);
+}</code></pre>
+              </div>
+
+              <h4>Input Validation Component</h4>
+              <div class="code-block">
+                <div class="code-header">JavaScript - Real-time Input Validation</div>
+                <pre><code class="language-javascript">// Add input event listeners to all number inputs
+document.querySelectorAll('input[type="number"]').forEach(input => {
+  input.addEventListener('input', function() {
+    validateInput(this);  // Validate on every input change
+  });
+});
+
+// Function to validate individual input fields
+function validateInput(input) {
+  const value = parseFloat(input.value);  // Get numeric value
+  const min = parseFloat(input.min);      // Minimum allowed value
+  const max = parseFloat(input.max);      // Maximum allowed value
+  const validationIcon = input.parentNode.querySelector('.validation-icon');
+  
+  // Check if value is within valid range
+  if (isNaN(value) || value < min || value > max) {
+    // Invalid input styling
+    input.style.borderColor = '#f44336';
+    input.style.background = '#ffebee';
+    if (validationIcon) {
+      validationIcon.textContent = '✗';  // Show X mark
+      validationIcon.className = 'validation-icon invalid-icon';
+    }
+  } else {
+    // Valid input styling
+    input.style.borderColor = '#4CAF50';
+    input.style.background = '#f1f8e9';
+    if (validationIcon) {
+      validationIcon.textContent = '✓';  // Show checkmark
+      validationIcon.className = 'validation-icon valid-icon';
+    }
+  }
+}
+
+// Function to validate entire form before submission
+function validateForm() {
+  let isValid = true;
+  const inputs = document.querySelectorAll('input[required]');
+  
+  inputs.forEach(input => {
+    if (!input.value) {
+      isValid = false;
+      // Add shake animation to empty required fields
+      input.classList.add("shake-animation");
+      setTimeout(() => {
+        input.classList.remove("shake-animation");
+      }, 1500);
+    }
+  });
+  
+  return isValid;
+}</code></pre>
+              </div>
+            </div>
+
+            <!-- Backend Code Section -->
+            <div class="doc-section" id="backend">
+              <h3>Backend Implementation</h3>
+              <p>The backend is built with FastAPI and PyTorch for machine learning inference.</p>
+              
+              <h4>FastAPI Application</h4>
+              <div class="code-block">
+                <div class="code-header">app.py - FastAPI Backend</div>
+                <pre><code class="language-python"># Import required libraries
+from fastapi import FastAPI  # FastAPI framework for building APIs
+from pydantic import BaseModel  # Data validation using Python type annotations
+import torch  # PyTorch for deep learning
+import torch.nn as nn  # Neural network modules
+import joblib  # For saving and loading scikit-learn models
+import numpy as np  # Numerical computing
+import asyncio  # For asynchronous programming
+
+# Define MLP model architecture
+class CropMLP(nn.Module):
+    def __init__(self, input_dim=7, output_dim=2698):
+        super(CropMLP, self).__init__()  # Initialize parent class
+        # Define sequential neural network layers
+        self.model = nn.Sequential(
+            nn.Linear(input_dim, 128),  # Input to hidden layer 1
+            nn.ReLU(),  # Activation function
+            nn.Linear(128, 256),  # Hidden layer 1 to hidden layer 2
+            nn.ReLU(),  # Activation function
+            nn.Linear(256, output_dim),  # Hidden layer 2 to output
+            nn.Sigmoid()  # Sigmoid activation for multi-label classification
+        )
+
+    def forward(self, x):
+        return self.model(x)  # Forward pass through the network
+
+# Load pre-trained model and MultiLabelBinarizer
+mlb = joblib.load("mlb.pkl")  # Load label binarizer
+model = CropMLP(input_dim=7, output_dim=len(mlb.classes_))  # Initialize model
+model.load_state_dict(torch.load("crop.pth", map_location=torch.device("cpu")))  # Load weights
+model.eval()  # Set model to evaluation mode
+
+# Initialize FastAPI application
+app = FastAPI(title="Async Crop Prediction API")  # Create FastAPI instance with title
+
+# Define request body schema using Pydantic
+class Environment(BaseModel):
+    N: float  # Nitrogen content
+    P: float  # Phosphorus content
+    K: float  # Potassium content
+    temperature: float  # Temperature in Celsius
+    humidity: float  # Relative humidity
+    ph: float  # Soil pH value
+    rainfall: float  # Annual rainfall
+    top_n: int = 5  # Optional parameter with default value
+
+# Asynchronous prediction function
+async def async_predict_crops(env_features, top_n=5):
+    await asyncio.sleep(0)  # Yield control to event loop for async operation
+    # Convert input to tensor and add batch dimension
+    env_tensor = torch.tensor(env_features, dtype=torch.float32).unsqueeze(0)
+    with torch.no_grad():  # Disable gradient calculation for inference
+        probs = model(env_tensor).numpy().flatten()  # Get probabilities
+    # Get indices of top N predictions in descending order
+    top_indices = probs.argsort()[-top_n:][::-1]
+    return [mlb.classes_[i] for i in top_indices]  # Return crop names
+
+# Define prediction endpoint
+@app.post("/predict")
+async def predict(env: Environment):
+    # Extract features from request
+    features = [
+        env.N, env.P, env.K,
+        env.temperature, env.humidity,
+        env.ph, env.rainfall
+    ]
+    # Get crop predictions
+    crops = await async_predict_crops(features, top_n=env.top_n)
+    return {"environment": features, "predicted_crops": crops}  # Return response</code></pre>
+              </div>
+
+              <h4>Running the Backend</h4>
+              <div class="code-block">
+                <div class="code-header">Terminal Commands</div>
+                <pre><code class="language-bash"># Install required Python packages
+pip install fastapi uvicorn torch scikit-learn joblib
+
+# Run the FastAPI server with auto-reload for development
+uvicorn app:app --host 0.0.0.0 --port 8000 --reload
+
+# For production deployment (without auto-reload)
+uvicorn app:app --host 0.0.0.0 --port 8000 --workers 4</code></pre>
+              </div>
+
+              <h4>Backend Architecture Explanation</h4>
+              <p>The backend follows a clean architecture with separation of concerns:</p>
+              <ul>
+                <li><strong>FastAPI Framework:</strong> Provides automatic API documentation, request validation, and async support</li>
+                <li><strong>Pydantic Models:</strong> Ensure type safety and automatic request validation</li>
+                <li><strong>PyTorch Model:</strong> Handles the machine learning inference with GPU support</li>
+                <li><strong>Joblib:</strong> Efficiently serializes and loads the MultiLabelBinarizer</li>
+                <li><strong>Asynchronous Processing:</strong> Allows handling multiple requests concurrently</li>
+              </ul>
+            </div>
+
+            <!-- Model Training Section -->
+            <div class="doc-section" id="model">
+              <h3>Machine Learning Model Training</h3>
+              <p>The ML model was trained on a comprehensive dataset using PyTorch. Below is the training code and process.</p>
+              
+              <h4>Training Code</h4>
+              <div class="code-block">
+                <div class="code-header">trainer.ipynb - Model Training</div>
+                <pre><code class="language-python"># Import required libraries
+import json  # For reading JSON data
+import numpy as np  # Numerical computations
+import pandas as pd  # Data manipulation
+import torch  # Deep learning framework
+import torch.nn as nn  # Neural network modules
+import torch.optim as optim  # Optimization algorithms
+from sklearn.model_selection import train_test_split  # Data splitting
+from sklearn.preprocessing import MultiLabelBinarizer  # Multi-label encoding
+from torch.utils.data import DataLoader, TensorDataset  # PyTorch data handling
+
+# Load and preprocess dataset
+data = []  # Initialize empty list for data
+with open("crops.jsonl", "r") as f:  # Open dataset file
+    for line in f:  # Read each line
+        data.append(json.loads(line.strip()))  # Parse JSON and add to list
+
+df = pd.DataFrame(data)  # Convert to pandas DataFrame
+feature_cols = ["N", "P", "K", "temperature", "humidity", "ph", "rainfall"]  # Feature columns
+X = df[feature_cols].values.astype(np.float32)  # Convert features to float32
+
+# Preprocess labels (multi-label encoding)
+y_raw = df["label"].apply(lambda x: x.split(","))  # Split comma-separated labels
+mlb = MultiLabelBinarizer()  # Initialize multi-label binarizer
+Y = mlb.fit_transform(y_raw).astype(np.float32)  # Transform labels to binary matrix
+
+# Split data into training and validation sets (80-20 split)
+X_train, X_val, Y_train, Y_val = train_test_split(X, Y, test_size=0.2, random_state=42)
+
+# Convert numpy arrays to PyTorch tensors
+X_train_tensor = torch.from_numpy(X_train)  # Training features
+Y_train_tensor = torch.from_numpy(Y_train)  # Training labels
+X_val_tensor = torch.from_numpy(X_val)  # Validation features
+Y_val_tensor = torch.from_numpy(Y_val)  # Validation labels
+
+# Create PyTorch datasets and data loaders
+train_dataset = TensorDataset(X_train_tensor, Y_train_tensor)  # Training dataset
+val_dataset = TensorDataset(X_val_tensor, Y_val_tensor)  # Validation dataset
+
+train_loader = DataLoader(train_dataset, batch_size=32, shuffle=True)  # Training data loader
+val_loader = DataLoader(val_dataset, batch_size=32)  # Validation data loader
+
+# Define the neural network architecture
+class CropMLP(nn.Module):
+    def __init__(self, input_dim, output_dim):
+        super(CropMLP, self).__init__()  # Initialize parent class
+        self.model = nn.Sequential(  # Sequential container for layers
+            nn.Linear(input_dim, 128),  # Input to first hidden layer
+            nn.ReLU(),  # ReLU activation for non-linearity
+            nn.Linear(128, 256),  # First to second hidden layer
+            nn.ReLU(),  # ReLU activation
+            nn.Linear(256, output_dim),  # Output layer
+            nn.Sigmoid()  # Sigmoid for multi-label probability output
+        )
+
+    def forward(self, x):
+        return self.model(x)  # Forward pass
+
+# Initialize model with correct dimensions
+input_dim = X_train.shape[1]  # Number of input features (7)
+output_dim = Y_train.shape[1]  # Number of output classes (2698 crops)
+model = CropMLP(input_dim, output_dim)  # Create model instance
+
+# Define loss function and optimizer
+criterion = nn.BCELoss()  # Binary Cross-Entropy loss for multi-label classification
+optimizer = optim.Adam(model.parameters(), lr=0.001)  # Adam optimizer with learning rate
+
+# Training loop
+num_epochs = 50  # Number of training epochs
+for epoch in range(num_epochs):
+    model.train()  # Set model to training mode
+    train_loss = 0  # Initialize training loss
+    
+    # Batch training
+    for xb, yb in train_loader:  # Iterate through training batches
+        optimizer.zero_grad()  # Clear previous gradients
+        outputs = model(xb)  # Forward pass
+        loss = criterion(outputs, yb)  # Calculate loss
+        loss.backward()  # Backward pass (compute gradients)
+        optimizer.step()  # Update weights
+        train_loss += loss.item() * xb.size(0)  # Accumulate loss
+    
+    train_loss /= len(train_loader.dataset)  # Average training loss
+
+    # Validation phase
+    model.eval()  # Set model to evaluation mode
+    val_loss = 0  # Initialize validation loss
+    with torch.no_grad():  # Disable gradient computation
+        for xb, yb in val_loader:  # Iterate through validation batches
+            outputs = model(xb)  # Forward pass
+            loss = criterion(outputs, yb)  # Calculate loss
+            val_loss += loss.item() * xb.size(0)  # Accumulate loss
+    
+    val_loss /= len(val_loader.dataset)  # Average validation loss
+
+    # Print training progress
+    print(f"Epoch {epoch+1}/{num_epochs} - Train Loss: {train_loss:.4f} - Val Loss: {val_loss:.4f}")
+
+# Save trained model and label binarizer
+torch.save(model.state_dict(), "crop.pth")  # Save model weights
+joblib.dump(mlb, "mlb.pkl")  # Save label binarizer</code></pre>
+              </div>
+
+              <h4>Training Results</h4>
+              <p>The model was trained for 50 epochs with the following performance:</p>
+              <ul>
+                <li><strong>Final Training Loss:</strong> 0.0137</li>
+                <li><strong>Final Validation Loss:</strong> 0.0261</li>
+                <li><strong>Training Time:</strong> ~15 minutes on GPU (T4)</li>
+                <li><strong>Model Size:</strong> 2.9 MB (crop.pth)</li>
+                <li><strong>MLB Size:</strong> 51.5 KB (mlb.pkl)</li>
+                <li><strong>Number of Crop Classes:</strong> 2,698 different crops</li>
+              </ul>
+
+              <h4>Model Evaluation</h4>
+              <div class="code-block">
+                <div class="code-header">Model Testing Code</div>
+                <pre><code class="language-python"># Function to make predictions with the trained model
+def predict_crops_nn(model, mlb, env_features, top_n=10):
+    model.eval()  # Set model to evaluation mode
+    # Convert input to tensor and add batch dimension
+    env_features = torch.tensor(env_features, dtype=torch.float32).unsqueeze(0)
+    with torch.no_grad():  # Disable gradient computation for inference
+        probs = model(env_features).numpy().flatten()  # Get probability scores
+    # Get indices of top N predictions in descending order
+    top_indices = probs.argsort()[-top_n:][::-1]
+    return [mlb.classes_[i] for i in top_indices]  # Return crop names
+
+# Test the model with sample environmental conditions
+test_envs = [
+    [60, 40, 70, 26, 75, 6.3, 180],  # Environment 1: Moderate conditions
+    [10, 5, 5, 20, 60, 5.5, 100],    # Environment 2: Low nutrient, tropical
+    [80, 60, 90, 30, 80, 6.8, 200]   # Environment 3: High nutrient, warm
+]
+
+# Make predictions for each test environment
+for i, env in enumerate(test_envs):
+    top_crops = predict_crops_nn(model, mlb, env, top_n=10)  # Get top 10 predictions
+    print(f"🌱 Environment {i+1}: {env}")  # Print environment
+    print("Top predicted crops:", top_crops)  # Print predictions</code></pre>
+              </div>
+            </div>
+
+            <!-- Optimization Algorithms Section -->
+            <div class="doc-section" id="optimization">
+              <h3>Optimization Algorithms Used</h3>
+              
+              <h4>Adam Optimizer (Selected Algorithm)</h4>
+              <p><strong>Adam (Adaptive Moment Estimation)</strong> was chosen as the optimization algorithm for training our neural network.</p>
+              
+              <h5>Why Adam Was Selected:</h5>
+              <ul>
+                <li><strong>Adaptive Learning Rates:</strong> Automatically adjusts learning rates for each parameter</li>
+                <li><strong>Momentum:</strong> Combines the benefits of two other extensions of stochastic gradient descent</li>
+                <li><strong>Efficiency:</strong> Computationally efficient with little memory requirements</li>
+                <li><strong>Suitable for Problems:</strong> Works well with noisy or sparse gradients</li>
+                <li><strong>Default Choice:</strong> Often works well without extensive hyperparameter tuning</li>
+              </ul>
+
+              <h5>Adam Algorithm Details:</h5>
+              <div class="code-block">
+                <div class="code-header">Adam Optimizer Implementation</div>
+                <pre><code class="language-python"># Adam optimizer configuration in our training code
+optimizer = optim.Adam(model.parameters(), lr=0.001)
+# Parameters:
+# - model.parameters(): All trainable parameters of the neural network
+# - lr=0.001: Learning rate (step size for parameter updates)
+# - betas: (0.9, 0.999) - default values for momentum and RMSprop
+# - eps: 1e-8 - default value for numerical stability
+# - weight_decay: 0 - no L2 regularization by default</code></pre>
+              </div>
+
+              <h5>Adam Mathematical Formulation:</h5>
+              <p>Adam combines ideas from RMSProp and Momentum:</p>
+              <ul>
+                <li>Maintains exponentially decaying average of past gradients (first moment)</li>
+                <li>Maintains exponentially decaying average of past squared gradients (second moment)</li>
+                <li>Computes bias-corrected first and second moment estimates</li>
+                <li>Uses these estimates to update parameters</li>
+              </ul>
+
+              <h4>Alternative Algorithms Considered and Rejected</h4>
+
+              <h5>SGD (Stochastic Gradient Descent) - Rejected</h5>
+              <p><strong>Why we didn't use SGD:</strong></p>
+              <ul>
+                <li><strong>Slow Convergence:</strong> Requires careful tuning of learning rate</li>
+                <li><strong>No Adaptive Learning:</strong> Same learning rate for all parameters</li>
+                <li><strong>Sensitivity:</strong> Very sensitive to feature scaling</li>
+                <li><strong>Oscillation:</strong> Can oscillate in ravines and saddle points</li>
+              </ul>
+
+              <h5>RMSProp - Rejected</h5>
+              <p><strong>Why we didn't use RMSProp:</strong></p>
+              <ul>
+                <li><strong>No Momentum:</strong> Lacks the momentum component that Adam provides</li>
+                <li><strong>Learning Rate:</strong> Still requires manual tuning of learning rate</li>
+                <li><strong>Less Robust:</strong> Not as robust as Adam across different problems</li>
+              </ul>
+
+              <h5>Adagrad - Rejected</h5>
+              <p><strong>Why we didn't use Adagrad:</strong></p>
+              <ul>
+                <li><strong>Aggressive Learning Rate Decay:</strong> Learning rates become infinitesimally small</li>
+                <li><strong>Poor Performance:</strong> Often performs worse than Adam on deep learning tasks</li>
+                <li><strong>Memory Intensive:</strong> Requires storing historical gradients for all parameters</li>
+              </ul>
+
+              <h4>Hyperparameter Tuning Strategy</h4>
+              <p>We used the following approach for hyperparameter optimization:</p>
+              <ul>
+                <li><strong>Learning Rate:</strong> Started with default 0.001, found to work well</li>
+                <li><strong>Batch Size:</strong> Used 32 as a balance between stability and speed</li>
+                <li><strong>Epochs:</strong> Trained for 50 epochs with early stopping consideration</li>
+                <li><strong>Architecture:</strong> Experimented with different layer sizes before settling on 128-256</li>
+              </ul>
+
+              <h4>Loss Function: Binary Cross-Entropy</h4>
+              <p>We used <strong>BCELoss (Binary Cross-Entropy Loss)</strong> because:</p>
+              <ul>
+                <li><strong>Multi-label Classification:</strong> Each crop can be independently recommended</li>
+                <li><strong>Probability Output:</strong> Sigmoid activation gives probabilities for each class</li>
+                <li><strong>Well-suited:</strong> Perfect for problems where multiple classes can be positive</li>
+              </ul>
+
+              <h4>Performance Optimization Techniques</h4>
+              <p>Additional optimizations implemented in our training:</p>
+              <ul>
+                <li><strong>GPU Acceleration:</strong> Used T4 GPU for faster training</li>
+                <li><strong>Data Loaders:</strong> Efficient batch processing with shuffling</li>
+                <li><strong>Memory Management:</strong> Proper tensor allocation and garbage collection</li>
+                <li><strong>Validation Set:</strong> Early detection of overfitting</li>
+              </ul>
+            </div>
+
+            <!-- Team Section -->
+            <div class="doc-section" id="team">
+              <h3>Development Team</h3>
+              <p>This project was developed by <strong>GROUP B</strong> from the Bachelor of Computer Technology program at Meru University of Science and Technology.</p>
+              
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="team-member">
+                    <div class="member-icon">
+                      <i class="fas fa-user-graduate"></i>
+                    </div>
+                    <h6>Haron</h6>
+                    <p class="text-muted">Team Lead & Developer</p>
+                    <small>Coordinated project development and contributed to both frontend and backend</small>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="team-member">
+                    <div class="member-icon">
+                      <i class="fas fa-user-graduate"></i>
+                    </div>
+                    <h6>Thaddeus</h6>
+                    <p class="text-muted">Backend Developer</p>
+                    <small>Implemented FastAPI server and machine learning integration</small>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="team-member">
+                    <div class="member-icon">
+                      <i class="fas fa-user-graduate"></i>
+                    </div>
+                    <h6>Steve</h6>
+                    <p class="text-muted">Frontend Developer</p>
+                    <small>Designed and implemented the user interface and JavaScript functionality</small>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="team-member">
+                    <div class="member-icon">
+                      <i class="fas fa-user-graduate"></i>
+                    </div>
+                    <h6>Edmond</h6>
+                    <p class="text-muted">UI/UX Designer</p>
+                    <small>Created the visual design and user experience flow</small>
+                  </div>
+                </div>
+                <div class="col-md-6 mx-auto">
+                  <div class="team-member">
+                    <div class="member-icon">
+                      <i class="fas fa-user-graduate"></i>
+                    </div>
+                    <h6>Samwuel</h6>
+                    <p class="text-muted">Data Analyst</p>
+                    <small>Preprocessed datasets and analyzed model performance</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Future Enhancements Section -->
+            <div class="doc-section" id="future">
+              <h3>Future Enhancements</h3>
+              <p>The following features are planned for future versions of the system:</p>
+              <ul class="feature-list">
+                <li>Integration with weather APIs for real-time climate data</li>
+                <li>Geolocation-based recommendations using GPS</li>
+                <li>Seasonal crop rotation suggestions</li>
+                <li>Pest and disease prediction based on environmental conditions</li>
+                <li>Multi-language support for local farmers</li>
+                <li>Mobile application version with offline capabilities</li>
+                <li>Farmer community features for knowledge sharing</li>
+                <li>Integration with IoT sensors for automated data collection</li>
+                <li>Yield prediction based on historical data</li>
+                <li>Market price integration for economic planning</li>
+                <li>Soil testing kit integration for automated parameter collection</li>
+                <li>Blockchain for supply chain transparency</li>
+              </ul>
+
+              <h4>Technical Improvements Planned</h4>
+              <ul>
+                <li><strong>Model Improvements:</strong> Transformer architectures for better sequence modeling</li>
+                <li><strong>Real-time Processing:</strong> WebSocket connections for live updates</li>
+                <li><strong>Database Integration:</strong> PostgreSQL for user data and history</li>
+                <li><strong>Microservices:</strong> Decompose monolith into specialized services</li>
+                <li><strong>Containerization:</strong> Docker and Kubernetes for scalable deployment</li>
+              </ul>
+            </div>
+
+            <!-- Back to Main Page Button -->
+            <div class="text-center mt-4">
+              <a href="https://group-b.pages.dev" class="btn btn-primary">
+                <i class="fas fa-arrow-left me-2"></i>Back to Main Application
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer" id="contact">
+    <div class="container">
+      <p>&copy; 2025 Bachelor of science in Computer Technology - GROUP-B. All rights reserved.</p>
+      <p>Meru University of Science and Technology</p>
+      <p><i class="fas fa-envelope me-2"></i> group-b@must.ac.ke | <i class="fas fa-phone me-2"></i> +25473587167</p>
+    </div>
+  </footer>
+
+  <!-- Bootstrap JavaScript -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+  
+  <script>
+    // Smooth scrolling for navigation links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault(); // Prevent default anchor behavior
+        const target = document.querySelector(this.getAttribute('href')); // Get target element
+        if (target) {
+          target.scrollIntoView({ // Smooth scroll to target
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+
+    // Update active nav link on scroll
+    window.addEventListener('scroll', function() {
+      const sections = document.querySelectorAll('.doc-section'); // All documentation sections
+      const navLinks = document.querySelectorAll('.doc-nav a'); // All navigation links
+      
+      let current = ''; // Currently active section
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop; // Section top position
+        const sectionHeight = section.clientHeight; // Section height
+        if (pageYOffset >= sectionTop - 100) { // Check if section is in view
+          current = section.getAttribute('id'); // Set as current section
+        }
+      });
+
+      // Update active state of navigation links
+      navLinks.forEach(link => {
+        link.classList.remove('active'); // Remove active class
+        if (link.getAttribute('href') === `#${current}`) {
+          link.classList.add('active'); // Add active class to current section
+        }
+      });
+    });
+
+    // Initialize the first navigation link as active
+    document.addEventListener('DOMContentLoaded', function() {
+      const firstNavLink = document.querySelector('.doc-nav a');
+      if (firstNavLink) {
+        firstNavLink.classList.add('active');
+      }
+    });
+  </script>
+</body>
+</html>
